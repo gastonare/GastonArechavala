@@ -139,4 +139,190 @@ arrayOfHintTimes(6) // O(n) ["hi","hi","hi", "hi"..]
 ```
 Space complexity -> O(n) Because we're creating a new data structure and adding memory so each item is an additional memory space.
 
+## How to solve problems?
 
+1. Analytic skills : How can you think trough a problem and analyse things. When you are coding how is your thought process and how you go from not knowing the answer to solving the problem.
+
+2. Coding skills : Is your code clean. Well organized. Readable.
+
+3. Technical skills : Do you know the fundamentals?. Do you understand the pros and cons of different solutions.
+
+4. Communication skills : Does your personality match the company's personality?. Can you communicate well with others with the team ? Most likely you won't be working by yourself
+
+In order to solve coding coding problems we will need these data structures and algorithms.
+
+Data structures
+
+- Arrays		- Trees
+- Stacks		- Tries
+- Queues		- Graphs
+- Linked Lists	- Hash Tables
+
+Algorithms
+
+- Sorting
+- Dynamic Programming
+- BFS + DFS (Searching)
+- Recursion
+
+1. When the interviewer says the question, write down the key points at the top. Make sure you have all the details
+
+```
+//Given 2 arrays, create a function that let's user know (true/false) whether these two arrays contain any common items:
+//For example:
+
+const array1 = ['a', 'b', 'c', 'x'];
+const array2 = ['z', 'y', 'i'];
+should return false;
+
+const array1 = ['a', 'b', 'c', 'x'];
+const array2 = ['z', 'y', 'x'];
+should return true;
+```
+
+2. Make sure you double check: What are the inputs? What are the outputs?
+
+```
+2 parameters - arrays - no size limit
+return true or false
+```
+
+3. What is the most important value of the problem? Do you have time, and space and memory,
+etc.. What is the main goal?
+
+```
+How large this array's gonna get ? What's more important time complexity or space complexity ?
+```
+
+4. Start with naive brute force approach. Just speak about it
+
+```
+//You can start saying. This looks like a nested loop where we're comparing 'a' with 'z' and then with 'y'...
+//Start with O(n^2)... Don't code about it. Tell why this approach isn't the best.
+
+For example (1st approach)
+
+function containsCommonItem(arr1, arr2) {
+	for(let i=0; i < arr1.length; i++){
+		for(let j=0; j<arr2.length; j++){
+			if(arr1[i] === arr2[j]){
+			  return true;
+			}
+		}
+	}
+	return false;
+}
+
+For example (2nd approach)
+
+//Convert array into object.
+
+// array1 ===> obj {
+//  a: true,
+//  b: true,
+//  c: true,
+//  x: true	
+//}
+
+```
+
+5. Before you start coding, walk through your code and write down the steps you are going to
+follow.
+
+```
+function containsCommonItem2(arr1, arr2){
+	
+	// loop through first array and create object
+	//where properities === items in the array
+	
+	// loop through second array and check if item
+	//in second array exists on created object,
+
+	//O(a+b) -> One step + second step (two separate for loops)
+}
+```
+
+6. Start actually writing your code now. And then check false inputs(For example repeated char, a number, an array, a null value, function call without 2nd array)
+```
+// loop through first array and create object where properities === items in the array
+// can we assume always 2 parameters?
+
+function containsCommonItem2(arr1, arr2){
+	let map = {};
+	for (let i=0; i < arr1.length; i++) {
+		if(!map[arr1[i]]){ // check if the element exists, for example if 'a' not exists it will add an element
+			const item = array1[i];
+			map[item] = true; 
+			// { a: true }
+		}
+	}
+}
+
+// loop through second array and check if item in second array exists on created object
+
+containsCommonItem2(arr1, arr2)
+
+for (let j=0; j < arr2.length; j++){
+	if (map[arr2[j]]){
+		return true;
+	}
+}
+return false;
+}
+
+// O(a+b) Better Time Complexity
+```
+
+7. Finally talk to the interviewer where you would improve the code.
+
+```
+// For example I would google specific methods to see if I can clean up the code and make it readable.
+
+function containsCommonItem3(arr1, arr2) {
+	return arr1.some(item => arr2.includes(item))
+}
+
+```
+
+8. How you would handle the problem if the whole input is too large to fit into memory, or if the input arrives as a stream.
+
+```
+// Evaluate the two functions. Pros and cons
+
+function containsCommonItem(arr1, arr2) {
+	for(let i=0; i < arr1.length; i++){
+		for(let j=0; j<arr2.length; j++){
+			if(arr1[i] === arr2[j]){
+			  return true;
+			}
+		}
+	}
+	return false;
+}
+
+//0(a*b) Time complexity
+//0(1) - Space complexity -> we're not creating any new variables. We 're just using the input arrays
+
+function containsCommonItem2(arr1, arr2){
+	let map = {};
+	for (let i=0; i < arr1.length; i++) {
+		if(!map[arr1[i]]){ // check if the element exists, for example if 'a' not exists it will add an element
+			const item = array1[i];
+			map[item] = true; 
+			// { a: true }
+		}
+	}
+}
+
+//0(a+b) Time complexity
+//0(a) Space complexity -> we're creating a new object and we 're adding the first array into an object which trakes up memory
+
+// If we need to evaluate the solution based on Space Complexity we should choose the first option. But based on Time Complexity the second one.
+```
+
+9. Modularize your code from the very beginning
+
+```
+// Create a function mapArrayToObject(arr1)
+// Create a function compareArrayToObject....
+```
