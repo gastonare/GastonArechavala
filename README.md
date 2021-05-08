@@ -326,3 +326,129 @@ function containsCommonItem2(arr1, arr2){
 // Create a function mapArrayToObject(arr1)
 // Create a function compareArrayToObject....
 ```
+
+## Data Structures
+A data structure is a collection of values(way to store information), algorithms are the steps or processes that we put into place to manipulate these collection of values. It's what allows us to write programs.
+
+Operations on data structures
+
+- Insertion (add a new item in a given collection of items)
+- Deletion 
+- Traversal (access each data item exactly once)
+- Searching (We want to find out the location of the data item if it exists in a given collection)
+- Sorting 
+- Access
+
+### Arrays
+
+Organizes items sequentially.
+
+- lookup(access) 0(1)
+- push 0(1)
+- insert 0(n)
+- delete 0(n)
+
+```
+const strings = ['a','b','c','d'];
+
+// push -> add something at the end of the array
+string.push('e'); //0(1)
+
+// pop -> remove the last item from the array
+strings.pop(); //0(1)
+
+// unshift -> add element at the begining of the array
+strings.unshift('x') //0(n)
+ 
+strings = ['a','b','c','d'];
+            0   1   2   3
+
+We need to reorder indexes in order to add 'x' at the begining (Looping trough all the array)
+
+strings = ['x','a','b','c','d'];
+            0   1   2   3   4
+```
+
+### Dynamic Array / Static Array
+
+**Static Array**:
+
+You need to specify the size of the array
+
+- lookup(access) 0(1)
+- push 0(1)
+- insert 0(n)
+- delete 0(n)
+
+**Dinamic Array**:
+
+Allow us to copy and rebuild an array at a new location wich with more memory
+
+- lookup(access) 0(1)
+- append* 0(1) Can be O(n)
+- insert 0(n)
+- delete 0(n)
+
+```
+// Append
+
+strings = ['a','b','c','d'];
+
+strings.append('e');
+
+strings = ['a','b','c','d','e'];
+
+// to peform this operation the system it's going to loop over these items.Copy them and move it to a different location with new blocks of space.
+
+```
+### Implementing an array
+
+```
+class MyArray{
+	constructor(){
+	  this.length = 0;
+	  this.data = {};
+	}
+
+	get(index){
+		return this.data[index]
+	}
+
+	push(item) {
+		this.data[this.length] = item;
+		this.length++;
+		return this.length;
+	}
+
+	pop(){
+		const lastItem = this.data[this.length-1];
+		delete this.data[this.length-1];
+		this.length--;
+		return lastItem;
+	}
+
+	delete(index){ // remove element and reorder the indexes
+		const item = this.data[index];
+		this.shiftItems(index);
+		return item;
+	}
+
+	shiftItems(index) {
+		for(let i = index; i < this.length - 1; i++)
+		{
+			this.data[i] = this.data[i+1] // reorder indexes
+		}
+		delete this.data[this.length-1]
+		this.length--;
+	}
+
+	const newArray = new MyArray();
+	newArray.push('hi');
+	newArray.push('you');
+	newArray.push('!');
+	newArray.pop();
+	newArray.delete(1); // 'you' item
+	console.log(newArray.get(0));
+}
+
+```
